@@ -49,7 +49,7 @@ func DampenedReports() string {
 
 		} else {
 			for i := range report {
-				dampenedReport := remove(report, i)
+				dampenedReport := Tools.Remove(report, i)
 
 				if hasMinAndMaxDifference(dampenedReport, 1, 3) && (isIncreasing(dampenedReport) || isDecreasing(dampenedReport)) {
 					safeReports++
@@ -100,11 +100,4 @@ func hasMinAndMaxDifference(l []int, min int, max int) bool {
 		curr = next
 	}
 	return true
-}
-
-func remove(l []int, i int) []int {
-	removedList := make([]int, i, len(l)-1)
-	_ = copy(removedList, l[:i])
-	removedList = append(removedList, l[i+1:]...)
-	return removedList
 }
