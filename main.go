@@ -5,6 +5,7 @@ import (
 
 	day1 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day1"
 	day2 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day2"
+	day3 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day3"
 )
 
 type solution struct {
@@ -18,6 +19,7 @@ func main() {
 	solutions := []solution{
 		{"Historian Hysteria", day1.TotalDistance, day1.SimilarityScore},
 		{"Red-Nosed Reports", day2.SafeReports, day2.DampenedReports},
+		{"Mull It Over", day3.Multiplications, day3.EnabledMultiplications},
 	}
 
 	for i, s := range solutions {
