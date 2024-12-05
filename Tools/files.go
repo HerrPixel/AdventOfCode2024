@@ -4,7 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
+
+func Lines(s string) []string {
+	return strings.Split(s, "\n")
+}
 
 func ReadByLines(path string) []string {
 	file, err := os.Open(path)
@@ -36,18 +41,4 @@ func Read(path string) string {
 	input := string(file)
 
 	return input
-
-	/*fileScanner := bufio.NewScanner(file)
-	fileScanner.Scan()
-	input := fileScanner.Text()
-
-	fileScanner.Split(bufio.ScanLines)
-
-	lines := make([]string, 0)
-
-	for fileScanner.Scan() {
-		lines = append(lines, fileScanner.Text())
-	}
-
-	return lines*/
 }
