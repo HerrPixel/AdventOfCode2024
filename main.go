@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	day1 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day1"
 	day2 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day2"
@@ -26,13 +27,24 @@ func main() {
 		{"Print Queue", day5.RightOrder, day5.WrongOrder},
 	}
 
+	start_global := time.Now()
+
 	for i, s := range solutions {
 		fmt.Println("Day", i+1, ":", s.name)
 
+		start := time.Now()
 		fmt.Println("    Part1:", s.part1function())
+		t := time.Now()
+		fmt.Println("    Took", t.Sub(start).Microseconds(), "μs")
 
+		start = time.Now()
 		fmt.Println("    Part2:", s.part2function())
-		fmt.Println("")
+		t = time.Now()
+		fmt.Println("    Took", t.Sub(start).Microseconds(), "μs")
 
+		fmt.Println("")
 	}
+
+	t := time.Now()
+	fmt.Println("Final time:", t.Sub(start_global).Milliseconds(), "ms")
 }
