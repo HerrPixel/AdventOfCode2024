@@ -24,3 +24,21 @@ func Equal[T comparable](a []T, b []T) bool {
 	}
 	return true
 }
+
+func Reverse[T any](l []T) []T {
+	reversed := make([]T, len(l))
+
+	for i := range l {
+		reversed[i] = l[len(l)-i-1]
+	}
+	return reversed
+}
+
+func Sum(l []int) int {
+	total := 0
+	for _, n := range l {
+		total += n
+	}
+
+	return total
+}

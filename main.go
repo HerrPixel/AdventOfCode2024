@@ -10,6 +10,9 @@ import (
 	day4 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day4"
 	day5 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day5"
 	day6 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day6"
+	day7 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day7"
+	day8 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day8"
+	day9 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day9"
 )
 
 type solution struct {
@@ -27,6 +30,9 @@ func main() {
 		{"Ceres Search", day4.XMAS, day4.X_MAS},
 		{"Print Queue", day5.RightOrder, day5.WrongOrder},
 		{"Guard Gallivant", day6.GuardLeave, day6.Obstruction},
+		{"Bridge Repair", day7.Part1, day7.Part2},
+		{"Resonant Collinearity", day8.Part1, day8.Part2},
+		{"Disk Fragmenter", day9.Part1, day9.Part2},
 	}
 
 	start_global := time.Now()
