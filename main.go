@@ -31,7 +31,7 @@ func main() {
 		{"Print Queue", day5.RightOrder, day5.WrongOrder},
 		{"Guard Gallivant", day6.GuardLeave, day6.Obstruction},
 		{"Bridge Repair", day7.Calibrations, day7.CalibrationsWithConcatenation},
-		{"Resonant Collinearity", day8.Part1, day8.Part2},
+		{"Resonant Collinearity", day8.AntinodePairs, day8.Antinodes},
 		{"Disk Fragmenter", day9.Part1, day9.Part2},
 	}
 

@@ -14,8 +14,8 @@ type tuple struct {
 
 func parseInput() (map[string][]tuple, int, int) {
 	lines := Tools.ReadByLines("./Day8/input.txt")
-	height := len(lines)
-	width := len(lines[0])
+	width := len(lines)
+	height := len(lines[0])
 	antennas := make(map[string][]tuple, 0)
 
 	for i, s := range lines {
@@ -35,7 +35,7 @@ func parseInput() (map[string][]tuple, int, int) {
 	return antennas, height, width
 }
 
-func Part1() string {
+func AntinodePairs() string {
 	antennas, height, width := parseInput()
 
 	antinodes := make(map[tuple]bool, 0)
@@ -46,66 +46,27 @@ func Part1() string {
 					continue
 				}
 
-				//fmt.Println("Testing", a, "and", b)
+				deltaX := a.x - b.x
+				deltaY := a.y - b.y
 
-				difX := a.x - b.x
-				difY := a.y - b.y
-
-				//fmt.Println("difX", difX, "difY", difY)
-
-				if a.x+difX == b.x && a.y+difY == b.y {
-					newX := a.x - difX
-					newY := a.y - difY
-
-					if newX >= 0 && newY >= 0 && newX < height && newY < width {
-						newCoords := tuple{newX, newY}
-						//fmt.Println("newCoords", newCoords)
-
-						antinodes[newCoords] = true
-					}
-
-					newX = b.x + difX
-					newY = b.y + difY
-
-					if newX >= 0 && newY >= 0 && newX < height && newY < width {
-						newCoords := tuple{newX, newY}
-						//fmt.Println("newCoords", newCoords)
-
-						antinodes[newCoords] = true
-					}
-				} else {
-					newX := a.x + difX
-					newY := a.y + difY
-
-					if newX >= 0 && newY >= 0 && newX < height && newY < width {
-						newCoords := tuple{newX, newY}
-						//fmt.Println("newCoords", newCoords)
-
-						antinodes[newCoords] = true
-					}
-
-					newX = b.x - difX
-					newY = b.y - difY
-
-					if newX >= 0 && newY >= 0 && newX < height && newY < width {
-						newCoords := tuple{newX, newY}
-						//fmt.Println("newCoords", newCoords)
-
-						antinodes[newCoords] = true
-					}
+				if isOnBoard(a.x+deltaX, a.y+deltaY, width, height) {
+					antinodes[tuple{a.x + deltaX, a.y + deltaY}] = true
 				}
+
+				if isOnBoard(b.x-deltaX, b.y-deltaY, width, height) {
+					antinodes[tuple{b.x - deltaX, b.y - deltaY}] = true
+				}
+
 			}
 		}
 	}
 
 	total := len(antinodes)
-
-	//fmt.Println(antinodes)
 
 	return strconv.Itoa(total)
 }
 
-func Part2() string {
+func Antinodes() string {
 	antennas, height, width := parseInput()
 
 	antinodes := make(map[tuple]bool, 0)
@@ -116,90 +77,37 @@ func Part2() string {
 					continue
 				}
 
-				//fmt.Println("Testing", a, "and", b)
+				deltaX := a.x - b.x
+				deltaY := a.y - b.y
 
-				difX := a.x - b.x
-				difY := a.y - b.y
+				x := a.x
+				y := a.y
 
-				currX := a.x
-				currY := a.y
+				for isOnBoard(x, y, width, height) {
+					antinodes[tuple{x, y}] = true
 
-				isOnBoard := true
-
-				for isOnBoard {
-					antinodes[tuple{currX, currY}] = true
-
-					currX = currX - difX
-					currY = currY - difY
-
-					isOnBoard = currX >= 0 && currY >= 0 && currX < height && currY < width
+					x = x - deltaX
+					y = y - deltaY
 				}
 
-				isOnBoard = true
-				currX = a.x
-				currY = a.y
+				x = b.x
+				y = b.y
 
-				for isOnBoard {
-					antinodes[tuple{currX, currY}] = true
+				for isOnBoard(x, y, width, height) {
+					antinodes[tuple{x, y}] = true
 
-					currX = currX + difX
-					currY = currY + difY
-
-					isOnBoard = currX >= 0 && currY >= 0 && currX < height && currY < width
+					x = x + deltaX
+					y = y + deltaY
 				}
-
-				//fmt.Println("difX", difX, "difY", difY)
-
-				/*
-					if a.x+difX == b.x && a.y+difY == b.y {
-						newX := a.x - difX
-						newY := a.y - difY
-
-						if newX >= 0 && newY >= 0 && newX < height && newY < width {
-							newCoords := tuple{newX, newY}
-							//fmt.Println("newCoords", newCoords)
-
-							antinodes[newCoords] = true
-						}
-
-						newX = b.x + difX
-						newY = b.y + difY
-
-						if newX >= 0 && newY >= 0 && newX < height && newY < width {
-							newCoords := tuple{newX, newY}
-							//fmt.Println("newCoords", newCoords)
-
-							antinodes[newCoords] = true
-						}
-					} else {
-						newX := a.x + difX
-						newY := a.y + difY
-
-						if newX >= 0 && newY >= 0 && newX < height && newY < width {
-							newCoords := tuple{newX, newY}
-							//fmt.Println("newCoords", newCoords)
-
-							antinodes[newCoords] = true
-						}
-
-						newX = b.x - difX
-						newY = b.y - difY
-
-						if newX >= 0 && newY >= 0 && newX < height && newY < width {
-							newCoords := tuple{newX, newY}
-							//fmt.Println("newCoords", newCoords)
-
-							antinodes[newCoords] = true
-						}
-					}
-				*/
 			}
 		}
 	}
 
 	total := len(antinodes)
 
-	//fmt.Println(antinodes)
-
 	return strconv.Itoa(total)
+}
+
+func isOnBoard(x int, y int, width int, height int) bool {
+	return x >= 0 && y >= 0 && x < width && y < height
 }
