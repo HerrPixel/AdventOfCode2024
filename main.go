@@ -30,7 +30,7 @@ func main() {
 		{"Ceres Search", day4.XMAS, day4.X_MAS},
 		{"Print Queue", day5.RightOrder, day5.WrongOrder},
 		{"Guard Gallivant", day6.GuardLeave, day6.Obstruction},
-		{"Bridge Repair", day7.Part1, day7.Part2},
+		{"Bridge Repair", day7.Calibrations, day7.CalibrationsWithConcatenation},
 		{"Resonant Collinearity", day8.Part1, day8.Part2},
 		{"Disk Fragmenter", day9.Part1, day9.Part2},
 	}

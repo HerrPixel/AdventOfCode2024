@@ -2,6 +2,7 @@ package day7
 
 import (
 	"math"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -16,14 +17,14 @@ type equation struct {
 func parseInput() []equation {
 	equations := make([]equation, 0)
 
-	for _, s := range Tools.ReadByLines("./Day7/input.txt") {
-		split := strings.Split(s, ": ")
-		result, _ := strconv.Atoi(split[0])
+	for _, line := range Tools.ReadByLines("./Day7/input.txt") {
+		splitLine := strings.Split(line, ": ")
+		result, _ := strconv.Atoi(splitLine[0])
 		numbers := make([]int, 0)
 
-		for _, n := range strings.Split(split[1], " ") {
-			num, _ := strconv.Atoi(n)
-			numbers = append(numbers, num)
+		for _, s := range strings.Split(splitLine[1], " ") {
+			n, _ := strconv.Atoi(s)
+			numbers = append(numbers, n)
 		}
 		equations = append(equations, equation{result, numbers})
 	}
@@ -31,95 +32,88 @@ func parseInput() []equation {
 	return equations
 }
 
-func Part1() string {
+func Calibrations() string {
 	equations := parseInput()
 
 	total := 0
 
-	for _, e := range equations {
-		nums := e.inputs
+	for _, equation := range equations {
+		numbers := equation.inputs
 
 		intermediateResults := make([]int, 0)
-		intermediateResults = append(intermediateResults, e.result)
+		intermediateResults = append(intermediateResults, equation.result)
 
-		nums = Tools.Reverse(nums)
-
+		numbers = Tools.Reverse(numbers)
 		isCorrect := false
-		for index, i := range nums {
+
+		for index, y := range numbers {
 			newIntermediateResults := make([]int, 0)
 
-			for _, j := range intermediateResults {
-				if j%i == 0 {
-					newIntermediateResults = append(newIntermediateResults, j/i)
+			if index == len(numbers)-1 {
+				isCorrect = slices.Contains(intermediateResults, y)
+				break
+			}
 
-					if index == len(nums)-1 && j/i == 1 {
-						isCorrect = true
-					}
+			for _, x := range intermediateResults {
+				if isDivisbleBy(x, y) {
+					newIntermediateResults = append(newIntermediateResults, x/y)
 				}
 
-				if j-i >= 0 {
-					newIntermediateResults = append(newIntermediateResults, j-i)
-					if index == len(nums)-1 && j-i == 0 {
-						isCorrect = true
-					}
+				if isSubtractableBy(x, y) {
+					newIntermediateResults = append(newIntermediateResults, x-y)
 				}
 			}
 			intermediateResults = newIntermediateResults
 		}
 
 		if isCorrect {
-			total += e.result
+			total += equation.result
 		}
 	}
 
 	return strconv.Itoa(total)
 }
 
-func Part2() string {
+func CalibrationsWithConcatenation() string {
 	equations := parseInput()
 
 	total := 0
 
-	for _, e := range equations {
-		nums := e.inputs
+	for _, equation := range equations {
+		numbers := equation.inputs
 
 		intermediateResults := make([]int, 0)
-		intermediateResults = append(intermediateResults, e.result)
+		intermediateResults = append(intermediateResults, equation.result)
 
-		nums = Tools.Reverse(nums)
-
+		numbers = Tools.Reverse(numbers)
 		isCorrect := false
-		for index, i := range nums {
+
+		for index, y := range numbers {
 			newIntermediateResults := make([]int, 0)
 
-			for _, j := range intermediateResults {
-				if j%i == 0 {
-					newIntermediateResults = append(newIntermediateResults, j/i)
+			if index == len(numbers)-1 {
+				isCorrect = slices.Contains(intermediateResults, y)
+				break
+			}
 
-					if index == len(nums)-1 && j/i == 1 {
-						isCorrect = true
-					}
+			for _, x := range intermediateResults {
+				if isDivisbleBy(x, y) {
+					newIntermediateResults = append(newIntermediateResults, x/y)
 				}
 
-				if j-i >= 0 {
-					newIntermediateResults = append(newIntermediateResults, j-i)
-					if index == len(nums)-1 && j-i == 0 {
-						isCorrect = true
-					}
+				if isSubtractableBy(x, y) {
+					newIntermediateResults = append(newIntermediateResults, x-y)
 				}
 
-				if endsWith(j, i) {
-					newIntermediateResults = append(newIntermediateResults, j/int(math.Pow10(len(strconv.Itoa(i)))))
-					if index == len(nums)-1 && len(strconv.Itoa(j)) == len(strconv.Itoa(i)) {
-						isCorrect = true
-					}
+				if endsWith(x, y) {
+					newIntermediateResults = append(newIntermediateResults, removeLastNDigits(x, len(strconv.Itoa(y))))
 				}
 			}
 			intermediateResults = newIntermediateResults
 		}
 
 		if isCorrect {
-			total += e.result
+			total += equation.result
 		}
 	}
 
@@ -129,4 +123,16 @@ func Part2() string {
 func endsWith(x int, y int) bool {
 	len := len(strconv.Itoa(y))
 	return x%int(math.Pow10(len)) == y
+}
+
+func isDivisbleBy(x int, y int) bool {
+	return x%y == 0
+}
+
+func isSubtractableBy(x int, y int) bool {
+	return x-y >= 0
+}
+
+func removeLastNDigits(x int, n int) int {
+	return x / int(math.Pow10(n))
 }
