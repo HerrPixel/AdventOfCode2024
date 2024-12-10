@@ -5,6 +5,7 @@ import (
 	"time"
 
 	day1 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day1"
+	day10 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day10"
 	day2 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day2"
 	day3 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day3"
 	day4 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day4"
@@ -33,6 +34,7 @@ func main() {
 		{"Bridge Repair", day7.Calibrations, day7.CalibrationsWithConcatenation},
 		{"Resonant Collinearity", day8.AntinodePairs, day8.Antinodes},
 		{"Disk Fragmenter", day9.Part1, day9.Part2},
+		{"Hoof It", day10.HikingTrails, day10.DistinctHikingTrails},
 	}
 
 	start_global := time.Now()
