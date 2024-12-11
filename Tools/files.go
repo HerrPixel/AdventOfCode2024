@@ -40,5 +40,5 @@ func Read(path string) string {
 	}
 	input := string(file)
 
-	return input
+	return strings.Trim(input, " \n")
 }
