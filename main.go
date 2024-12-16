@@ -11,6 +11,7 @@ import (
 	day13 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day13"
 	day14 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day14"
 	day15 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day15"
+	day16 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day16"
 	day2 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day2"
 	day3 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day3"
 	day4 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day4"
@@ -45,6 +46,7 @@ func main() {
 		{"Claw Contraption", day13.PrizeTokens, day13.FarawayPrizeTokens},
 		{"Restroom Redoubt", day14.Bathroom, day14.EasterEgg},
 		{"Warehouse Woes", day15.Part1, day15.Part2},
+		{"Reindeer Maze", day16.Part1, day16.Part2},
 	}
 
 	start_global := time.Now()
