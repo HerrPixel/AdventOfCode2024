@@ -14,6 +14,7 @@ import (
 	day16 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day16"
 	day17 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day17"
 	day18 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day18"
+	day19 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day19"
 	day2 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day2"
 	day3 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day3"
 	day4 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day4"
@@ -51,6 +52,7 @@ func main() {
 		{"Reindeer Maze", day16.Part1, day16.Part2},
 		{"Chronospatial Computer", day17.Part1, day17.Part2},
 		{"RAM Run", day18.Part1, day18.Part2},
+		{"Linen Layout", day19.Part1, day19.Part2},
 	}
 
 	start_global := time.Now()
