@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"git.jonasseiler.de/Jonas/AdventOfCode2024/Tools"
+	"github.com/HerrPixel/AdventOfCode2024/Tools"
 )
 
 type triple struct {
