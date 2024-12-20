@@ -17,6 +17,11 @@ import (
 	day19 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day19"
 	day2 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day2"
 	day20 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day20"
+	day21 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day21"
+	day22 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day22"
+	day23 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day23"
+	day24 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day24"
+	day25 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day25"
 	day3 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day3"
 	day4 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day4"
 	day5 "git.jonasseiler.de/Jonas/AdventOfCode2024/Day5"
@@ -55,6 +60,11 @@ func main() {
 		{"RAM Run", day18.Part1, day18.Part2},
 		{"Linen Layout", day19.Part1, day19.Part2},
 		{"Race Condition", day20.Part1, day20.Part2},
+		{"Placeholder", day21.Part1, day21.Part2},
+		{"Placeholder", day22.Part1, day22.Part2},
+		{"Placeholder", day23.Part1, day23.Part2},
+		{"Placeholder", day24.Part1, day24.Part2},
+		{"Placeholder", day25.Part1, day25.Part2},
 	}
 
 	start_global := time.Now()
