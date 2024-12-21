@@ -60,7 +60,7 @@ func main() {
 		{"RAM Run", day18.Part1, day18.Part2},
 		{"Linen Layout", day19.Part1, day19.Part2},
 		{"Race Condition", day20.Part1, day20.Part2},
-		{"Placeholder", day21.Part1, day21.Part2},
+		{"Keypad Conundrum", day21.Part1, day21.Part2},
 		{"Placeholder", day22.Part1, day22.Part2},
 		{"Placeholder", day23.Part1, day23.Part2},
 		{"Placeholder", day24.Part1, day24.Part2},
