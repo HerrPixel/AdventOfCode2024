@@ -64,7 +64,7 @@ func main() {
 		{"Monkey Market", day22.Part1, day22.Part2},
 		{"LAN Party", day23.Part1, day23.Part2},
 		{"Crossed Wires", day24.Part1, day24.Part2},
-		{"Placeholder", day25.Part1, day25.Part2},
+		{"Code Chronicle", day25.Part1, day25.Part2},
 	}
 
 	start_global := time.Now()
