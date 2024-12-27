@@ -37,6 +37,8 @@ func parseInput() (map[int][]int, [][]int) {
 
 }
 
+// We sort the list with a custom ordering function based on the input
+// If the given list does not change after sorting, we add the median of the list
 func RightOrder() string {
 	orderings, lists := parseInput()
 
@@ -59,6 +61,8 @@ func RightOrder() string {
 	return strconv.Itoa(total)
 }
 
+// We sort the list with a custom ordering function based on the input
+// If this changes the list, we add the median
 func WrongOrder() string {
 	orderings, lists := parseInput()
 
