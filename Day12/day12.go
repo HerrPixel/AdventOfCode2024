@@ -32,6 +32,7 @@ func readInput() ([][]string, int, int) {
 	return grid, width, height
 }
 
+// Count each zone via a flood fill algorithm
 func PerimeterFences() string {
 	grid, width, height := readInput()
 
@@ -46,6 +47,7 @@ func PerimeterFences() string {
 	return strconv.Itoa(total)
 }
 
+// Count each zone via flood fill algorithm and calculating the number of sides as the number of corners
 func SideFences() string {
 	grid, width, height := readInput()
 
@@ -60,6 +62,7 @@ func SideFences() string {
 	return strconv.Itoa(total)
 }
 
+// returns a list of zones with number of sides as the number of corners, area and perimeter
 func floodFill(grid [][]string, width int, height int) []zone {
 	filled := make([][]bool, width)
 	for i := range width {
@@ -100,12 +103,15 @@ func floodFill(grid [][]string, width int, height int) []zone {
 				c := grid[x][y]
 
 				area += 1
+
+				// check if the current space is a corner
 				sides += cornerMultiplicity(grid, x, y, width, height)
 
 				for _, movement := range movements {
 					deltaX := movement.x
 					deltaY := movement.y
 
+					// if any adjacent space does not belong to this area, then the current space is an edge space
 					if !isInBounds(x+deltaX, y+deltaY) || grid[x+deltaX][y+deltaY] != c {
 						perimeter++
 						continue
@@ -125,6 +131,10 @@ func floodFill(grid [][]string, width int, height int) []zone {
 	return zones
 }
 
+// A space is a corner if for any two orthogonal neighbors
+// - either both have different types as the space (outside corner)
+// - or both have the same type but the diagonal space has not (inside corner)
+// A space can also be a corner to multiple directions, we need to count each of those seperately
 func cornerMultiplicity(grid [][]string, x int, y int, width int, height int) int {
 	multiplicity := 0
 
@@ -145,8 +155,10 @@ func cornerMultiplicity(grid [][]string, x int, y int, width int, height int) in
 		a := c[0]
 		b := c[1]
 
+		// outside corner
 		if isDifferent(x+a.x, y+a.y) && isDifferent(x+b.x, y+b.y) {
 			multiplicity++
+			// inside corner
 		} else if !isDifferent(x+a.x, y+a.y) && !isDifferent(x+b.x, y+b.y) && isDifferent(x+a.x+b.x, y+a.y+b.y) {
 			multiplicity++
 		}
