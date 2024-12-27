@@ -54,7 +54,7 @@ func parseInput() (map[string]bool, map[string]gate) {
 
 }
 
-func Part1() string {
+func SimulateCircuit() string {
 	values, gates := parseInput()
 
 	var getValue func(string) bool
@@ -92,7 +92,7 @@ func Part1() string {
 	return strconv.Itoa(total)
 }
 
-func Part2() string {
+func WrongWires() string {
 	_, gates := parseInput()
 
 	var x [45]string

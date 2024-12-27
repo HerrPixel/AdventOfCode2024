@@ -31,7 +31,7 @@ func parseInput() map[string][]string {
 	return nodes
 }
 
-func Part1() string {
+func Triangles() string {
 	nodes := parseInput()
 
 	found := make(map[string]bool, 0)
@@ -62,7 +62,7 @@ func Part1() string {
 	return strconv.Itoa(len(found))
 }
 
-func Part2() string {
+func LargestClique() string {
 	nodes := parseInput()
 	keys := make([]string, 0, len(nodes))
 	for k, _ := range nodes {

@@ -38,7 +38,7 @@ func parseInput() ([][]int, int, int, int, int) {
 	return distance, startX, startY, endX, endY
 }
 
-func Part1() string {
+func ShortShortcuts() string {
 	distance, startX, startY, endX, endY := parseInput()
 
 	path := getPath(distance, startX, startY, endX, endY)
@@ -46,7 +46,7 @@ func Part1() string {
 	return strconv.Itoa(countShortcuts(path, 2))
 }
 
-func Part2() string {
+func LongShortcuts() string {
 	distance, startX, startY, endX, endY := parseInput()
 
 	path := getPath(distance, startX, startY, endX, endY)

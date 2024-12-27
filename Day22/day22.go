@@ -18,7 +18,7 @@ func parseInputs() []int {
 	return numbers
 }
 
-func Part1() string {
+func SecretNumbers() string {
 	numbers := parseInputs()
 
 	total := 0
@@ -34,7 +34,7 @@ func Part1() string {
 	return strconv.Itoa(total)
 }
 
-func Part2() string {
+func MarketOptimization() string {
 	numbers := parseInputs()
 
 	sequences := make(map[int32]int, 0)

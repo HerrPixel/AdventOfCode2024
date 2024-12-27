@@ -7,7 +7,7 @@ import (
 	"github.com/HerrPixel/AdventOfCode2024/Tools"
 )
 
-func Part1() string {
+func KeyLockCombinations() string {
 	keys := make([][5]int, 0)
 	locks := make([][5]int, 0)
 
@@ -51,6 +51,6 @@ func Part1() string {
 	return strconv.Itoa(total)
 }
 
-func Part2() string {
+func MerryChristmas() string {
 	return "Merry Christmas"
 }

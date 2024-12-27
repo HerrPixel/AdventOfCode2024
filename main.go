@@ -59,12 +59,12 @@ func main() {
 		{"Chronospatial Computer", day17.SimulateProgramm, day17.SelfReplicationValue},
 		{"RAM Run", day18.ByteRainPath, day18.LatestByteRainPath},
 		{"Linen Layout", day19.PossibleDesigns, day19.DesignCombinations},
-		{"Race Condition", day20.Part1, day20.Part2},
-		{"Keypad Conundrum", day21.Part1, day21.Part2},
-		{"Monkey Market", day22.Part1, day22.Part2},
-		{"LAN Party", day23.Part1, day23.Part2},
-		{"Crossed Wires", day24.Part1, day24.Part2},
-		{"Code Chronicle", day25.Part1, day25.Part2},
+		{"Race Condition", day20.ShortShortcuts, day20.LongShortcuts},
+		{"Keypad Conundrum", day21.ShortComplexities, day21.LongComplexities},
+		{"Monkey Market", day22.SecretNumbers, day22.MarketOptimization},
+		{"LAN Party", day23.Triangles, day23.LargestClique},
+		{"Crossed Wires", day24.SimulateCircuit, day24.WrongWires},
+		{"Code Chronicle", day25.KeyLockCombinations, day25.MerryChristmas},
 	}
 
 	start_global := time.Now()

@@ -39,7 +39,7 @@ func parseInput() ([][]int, []int) {
 	return codes, numericalValues
 }
 
-func Part1() string {
+func ShortComplexities() string {
 	codes, numericalValues := parseInput()
 
 	total := 0
@@ -51,7 +51,7 @@ func Part1() string {
 	return strconv.Itoa(total)
 }
 
-func Part2() string {
+func LongComplexities() string {
 	codes, numericalValues := parseInput()
 
 	total := 0
