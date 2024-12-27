@@ -26,14 +26,9 @@ func parseInput() ([]string, []string) {
 func Part1() string {
 	towels, designs := parseInput()
 
-	//fmt.Println(towels)
-	//fmt.Println(designs)
-
 	total := 0
 	for _, d := range designs {
-		//fmt.Println("alive", j)
 		i := possibilities(d, towels, make(map[string]int, 0))
-		//fmt.Println(i)
 		if i > 0 {
 			total += 1
 		}
@@ -44,15 +39,9 @@ func Part1() string {
 
 func Part2() string {
 	towels, designs := parseInput()
-
-	//fmt.Println(towels)
-	//fmt.Println(designs)
-
 	total := 0
 	for _, d := range designs {
-		//fmt.Println("alive", j)
 		i := possibilities(d, towels, make(map[string]int, 0))
-		//fmt.Println(i)
 		total += i
 	}
 
@@ -73,7 +62,6 @@ func possibilities(design string, towels []string, memo map[string]int) int {
 	combinations := 0
 
 	for _, t := range towels {
-		//fmt.Println("trying", design, "with", t)
 
 		if beginsWith(design, t) {
 			res := possibilities(design[len(t):], towels, memo)
