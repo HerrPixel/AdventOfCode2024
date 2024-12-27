@@ -12,13 +12,8 @@ func parseInput() ([]string, []string) {
 	towels := make([]string, 0)
 	designs := make([]string, 0)
 
-	for _, s := range strings.Split(input[0], ", ") {
-		towels = append(towels, s)
-	}
-
-	for _, s := range strings.Split(input[1], "\n") {
-		designs = append(designs, s)
-	}
+	towels = append(towels, strings.Split(input[0], ", ")...)
+	designs = append(designs, strings.Split(input[1], "\n")...)
 
 	return towels, designs
 }
