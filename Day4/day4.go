@@ -23,6 +23,7 @@ func parseInput() [][]string {
 	return matrix
 }
 
+// We pivot around the "X" and check each direction if it forms a valid XMAS starting with the given "X"
 func XMAS() string {
 	matrix := parseInput()
 	total := 0
@@ -60,6 +61,8 @@ func XMAS() string {
 	return strconv.Itoa(total)
 }
 
+// We pivot around the "A" character
+// Since X-Mas's don't overlap, we can naively check if an "A" is a X-Mas
 func X_MAS() string {
 	matrix := parseInput()
 	total := 0
@@ -140,6 +143,7 @@ func diagonal_left_downwards(m [][]string, i int, j int) bool {
 	return (m[i-1][j+1] == "M") && (m[i-2][j+2] == "A") && (m[i-3][j+3] == "S")
 }
 
+// diagonal elements must be "M" or "S" and different, then the anti-diagonal elements must match exactly one of the diagonal elements
 func isXMas(m [][]string, i int, j int) bool {
 	if (i < 1) || (j < 1) || (i > len(m[0])-2) || (j > len(m)-2) {
 		return false
