@@ -27,7 +27,7 @@ func parseInput() []tuple {
 	return bytes
 }
 
-func Part1() string {
+func ByteRainPath() string {
 	bytes := parseInput()
 
 	width := 71
@@ -38,7 +38,7 @@ func Part1() string {
 	return strconv.Itoa(bfs(grid, 0, 0, width-1, height-1))
 }
 
-func Part2() string {
+func LatestByteRainPath() string {
 	bytes := parseInput()
 
 	width := 71

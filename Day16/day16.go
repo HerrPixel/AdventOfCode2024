@@ -52,7 +52,7 @@ func parseInput() ([][]bool, int, int, int, int) {
 	return grid, startX, startY, endX, endY
 }
 
-func Part1() string {
+func ReindeerPath() string {
 	grid, startX, startY, endX, endY := parseInput()
 
 	distances, _ := dijkstra(grid, startX, startY)
@@ -67,7 +67,7 @@ func Part1() string {
 	return strconv.Itoa(minDistance)
 }
 
-func Part2() string {
+func BenchSpots() string {
 	grid, startX, startY, endX, endY := parseInput()
 
 	distances, predecessor := dijkstra(grid, startX, startY)

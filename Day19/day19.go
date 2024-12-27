@@ -18,7 +18,7 @@ func parseInput() ([]string, []string) {
 	return towels, designs
 }
 
-func Part1() string {
+func PossibleDesigns() string {
 	towels, designs := parseInput()
 
 	total := 0
@@ -32,7 +32,7 @@ func Part1() string {
 	return strconv.Itoa(total)
 }
 
-func Part2() string {
+func DesignCombinations() string {
 	towels, designs := parseInput()
 	total := 0
 	for _, d := range designs {

@@ -47,7 +47,7 @@ func parseInput() ([][]string, int, int, []int) {
 	return grid, x, y, moves
 }
 
-func Part1() string {
+func GPSCoordinates() string {
 	grid, x, y, moves := parseInput()
 
 	for _, i := range moves {
@@ -59,7 +59,7 @@ func Part1() string {
 	return strconv.Itoa(gpsScore(grid))
 }
 
-func Part2() string {
+func DoubledChests() string {
 	grid, x, y, moves := parseInput()
 
 	y *= 2

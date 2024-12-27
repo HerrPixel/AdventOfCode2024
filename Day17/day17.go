@@ -31,7 +31,7 @@ func parseInput() (int, int, int, []int) {
 	return a, b, c, instructions
 }
 
-func Part1() string {
+func SimulateProgramm() string {
 	a, b, c, instructions := parseInput()
 
 	numbers := run(instructions, a, b, c)
@@ -44,7 +44,7 @@ func Part1() string {
 	return strings.Join(chars, ",")
 }
 
-func Part2() string {
+func SelfReplicationValue() string {
 	_, _, _, instructions := parseInput()
 
 	candidates := make([]int, 0)
