@@ -32,6 +32,8 @@ func parseInput() []equation {
 	return equations
 }
 
+// We go the list in reverse and collect possible intermediate results
+// This way, we have way less results than with forward iteration, since we can throw out numbers if they aren't divisible by the next number for example
 func Calibrations() string {
 	equations := parseInput()
 
@@ -74,6 +76,9 @@ func Calibrations() string {
 	return strconv.Itoa(total)
 }
 
+// Same as part 1 but with another operation
+// We go the list in reverse and collect possible intermediate results
+// This way, we have way less results than with forward iteration, since we can throw out numbers if they aren't divisible by the next number for example
 func CalibrationsWithConcatenation() string {
 	equations := parseInput()
 
