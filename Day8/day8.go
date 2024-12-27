@@ -35,6 +35,7 @@ func parseInput() (map[string][]tuple, int, int) {
 	return antennas, height, width
 }
 
+// We find the antinodes by offsetting each antenna pair by their vector connecting them
 func AntinodePairs() string {
 	antennas, height, width := parseInput()
 
@@ -66,6 +67,8 @@ func AntinodePairs() string {
 	return strconv.Itoa(total)
 }
 
+// We iteratively offset the points by starting at an antena and adding the specific vector
+// We implicitely assume that this vector is not an integer multiple of another integer vector
 func Antinodes() string {
 	antennas, height, width := parseInput()
 
