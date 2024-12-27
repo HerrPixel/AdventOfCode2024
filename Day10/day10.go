@@ -30,6 +30,7 @@ func parseInput() ([][]int, []tuple) {
 	return grid, trailheads
 }
 
+// Simple BFS from any trailhead
 func HikingTrails() string {
 	grid, trailheads := parseInput()
 
@@ -42,6 +43,7 @@ func HikingTrails() string {
 	return strconv.Itoa(total)
 }
 
+// This time it's DFS from any trailhead, counting each unique path instead of each summit
 func DistinctHikingTrails() string {
 	grid, trailheads := parseInput()
 
