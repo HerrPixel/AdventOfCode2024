@@ -44,6 +44,7 @@ func parseInput() []int {
 	return disk
 }
 
+// We move files with the standard moving algorithm from part 2 but pretending all files have size 1
 func Part1() string {
 	disk := parseInput()
 	index := len(disk) - 1
@@ -51,6 +52,7 @@ func Part1() string {
 
 	for isInBounds(disk, index) && index >= i {
 		if !isFreeSpace(disk, index) {
+			// the pretending actually happens here where we say that the file starts at the same index it ends
 			disk, i = moveFileWithStartValue(disk, index, i)
 		}
 		index--
@@ -59,6 +61,7 @@ func Part1() string {
 	return strconv.Itoa(calculateChecksum(disk))
 }
 
+// we move files with the described moving algorithm from the end of the list to the beginning
 func Part2() string {
 	disk := parseInput()
 	index := len(disk) - 1
@@ -88,10 +91,13 @@ func calculateChecksum(l []int) int {
 	return total
 }
 
+// moves the file starting at index to the next continuous free space starting from the beginning of the disk
 func moveFile(l []int, index int) ([]int, int) {
 	return moveFileWithStartValue(l, index, 0)
 }
 
+// moves the file starting at index to the next continous free space starting at start
+// is the same as moveFile but we supply a start value to search from, to speed up the search when the beginning is mostly occupied
 func moveFileWithStartValue(l []int, index int, start int) ([]int, int) {
 	length := lengthOfStrip(l, index)
 	id := l[index]
@@ -118,6 +124,7 @@ func isInBounds(l []int, index int) bool {
 	return 0 <= index && index < len(l)
 }
 
+// Counts the length of the countinous strip ending at index
 func reverseLengthOfStrip(l []int, index int) int {
 	id := l[index]
 	length := 1
@@ -129,6 +136,7 @@ func reverseLengthOfStrip(l []int, index int) int {
 	return length
 }
 
+// Counts the length of the continous space starting at index
 func lengthOfStrip(l []int, index int) int {
 	id := l[index]
 	length := 1
@@ -140,6 +148,7 @@ func lengthOfStrip(l []int, index int) int {
 	return length
 }
 
+// finds the next continuous free space of length at least size and index starting at start
 func findFreeSpace(l []int, size int, start int) int {
 	i := start
 	for isInBounds(l, i) {
