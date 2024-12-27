@@ -23,6 +23,7 @@ func parseInput() [][]int {
 	return reports
 }
 
+// Iterating through every list, we check that the conditions are satisfied
 func SafeReports() string {
 	reports := parseInput()
 
@@ -38,6 +39,9 @@ func SafeReports() string {
 	return strconv.Itoa(safeReports)
 }
 
+// We naively remove an element and check if that list is valid
+// If this works for at least one element, we increment the count
+// This is pure brute force but it is fast enough
 func DampenedReports() string {
 	reports := parseInput()
 
