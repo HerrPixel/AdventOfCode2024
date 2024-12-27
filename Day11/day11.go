@@ -21,12 +21,15 @@ func parseInput() []int {
 	return rocks
 }
 
+// Independently simulating each rock, memoizing the result of each (rock, blink) combination to speed up calculation
 func Blinking() string {
 	rocks := parseInput()
 
 	return strconv.Itoa(blink(25, rocks))
 }
 
+// Same as Part1
+// Independently simulating each rock, memoizing the result of each (rock, blink) combination to speed up calculation
 func MoreBlinking() string {
 	rocks := parseInput()
 
@@ -43,14 +46,17 @@ func blink(n int, rocks []int) int {
 
 		res, ok := dp[scene]
 
+		// If we have seen this rock with the same number of blinks remaining before, return that memoized result
 		if ok {
 			return res
 		}
 
+		// otherwise, when we have blinked enough, stop the recursion
 		if round == n {
 			return 1
 		}
 
+		// blinking procedure
 		if rock == 0 {
 			res = recurse(1, round+1)
 		} else if digits(rock)%2 == 0 {
@@ -60,6 +66,7 @@ func blink(n int, rocks []int) int {
 			res = recurse(rock*2024, round+1)
 		}
 
+		// memoize this result
 		dp[scene] = res
 		return res
 	}
