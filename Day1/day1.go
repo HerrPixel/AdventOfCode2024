@@ -25,6 +25,7 @@ func parseInput() ([]int, []int) {
 	return leftList, rightList
 }
 
+// Sorting both lists and summing up their difference
 func TotalDistance() string {
 	leftList, rightList := parseInput()
 
@@ -40,6 +41,8 @@ func TotalDistance() string {
 	return strconv.Itoa(totalDistance)
 }
 
+// First counting multiplicities of one list and iterating through the other list, summing up the respective scores
+// This results in an expected linear time instead of naive quadratic time
 func SimilarityScore() string {
 	leftList, rightList := parseInput()
 
