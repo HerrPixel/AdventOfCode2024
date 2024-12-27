@@ -7,6 +7,7 @@ import (
 	"github.com/HerrPixel/AdventOfCode2024/Tools"
 )
 
+// finding correct multiplication instructions via regex search and executing them
 func Multiplications() string {
 	r := regexp.MustCompile(`mul\(([0-9]+),([0-9]+)\)`)
 
@@ -21,6 +22,8 @@ func Multiplications() string {
 	return strconv.Itoa(total)
 }
 
+// finding correct instructions via regex search
+// The new instructions just flip a boolean value that enables the multiplication to take place
 func EnabledMultiplications() string {
 	r := regexp.MustCompile(`mul\(([0-9]+),([0-9]+)\)|do\(\)|don't\(\)`)
 
