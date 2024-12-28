@@ -47,6 +47,11 @@ func parseInput() ([][]string, int, int, []int) {
 	return grid, x, y, moves
 }
 
+// We simulate each move as a two-step process
+// First we test if the move is valid by recursively testing each pushed chest if it could move in that direction
+// If any chest can't, the move is invalid
+// Only if it is valid, we actually push the chests
+// We do this by first recursively push the last chest and then in rolling up the push stack, we push the previous chests.
 func GPSCoordinates() string {
 	grid, x, y, moves := parseInput()
 
@@ -59,6 +64,9 @@ func GPSCoordinates() string {
 	return strconv.Itoa(gpsScore(grid))
 }
 
+// Same as Part 1
+// We first test the move if it is valid by testing each affected chest if it can be pushed
+// And only execute the move if that is the case
 func DoubledChests() string {
 	grid, x, y, moves := parseInput()
 
@@ -75,6 +83,7 @@ func DoubledChests() string {
 	return strconv.Itoa(gpsScore(grid))
 }
 
+// Recursively test if a move is valid by testing if we can move a space in that direction and every pushed object can as well
 func canMove(grid [][]string, x int, y int, direction int) bool {
 	if grid[x][y] == "." {
 		return true
@@ -91,6 +100,7 @@ func canMove(grid [][]string, x int, y int, direction int) bool {
 
 	successorCanMove := canMove(grid, x, y, direction)
 
+	// If we move up or down and the chest is a double chest, we also need to check if we can push the other half
 	if grid[x][y] == "[" && direction%2 == 0 {
 		successorCanMove = successorCanMove && canMove(grid, x, y+1, direction)
 	}
@@ -102,6 +112,7 @@ func canMove(grid [][]string, x int, y int, direction int) bool {
 	return successorCanMove
 }
 
+// Move the chests, assuming there is enough free space
 func move(grid [][]string, x int, y int, direction int) ([][]string, int, int) {
 	if grid[x][y] == "." {
 		return grid, x, y
@@ -114,6 +125,7 @@ func move(grid [][]string, x int, y int, direction int) ([][]string, int, int) {
 
 	grid, _, _ = move(grid, newX, newY, direction)
 
+	// If we move up or down and the chest is a double chest, we also need to push the other half
 	if grid[x][y] == "[" && direction%2 == 0 {
 		grid, _, _ = move(grid, newX, newY+1, direction)
 		grid[newX][newY+1] = "]"
@@ -132,6 +144,7 @@ func move(grid [][]string, x int, y int, direction int) ([][]string, int, int) {
 	return grid, newX, newY
 }
 
+// stretches the warehouse horizontally
 func doubleWarehouse(grid [][]string) [][]string {
 	warehouse := make([][]string, 0)
 
