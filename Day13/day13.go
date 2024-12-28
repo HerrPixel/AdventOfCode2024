@@ -43,6 +43,17 @@ func parseInput() []machine {
 	return machines
 }
 
+// We calculate the solution to a 2-dimensional system of equations.
+// If the solution is an integer, that is the number of presses.
+// Essentially we want to solve c * Ax + d * Bx = prizeX and c * Ay + d * By = prizeY
+// We can then write this as a matrix equation:
+// |Ax Bx| |c| = |prizeX|
+// |Ay By| |d| = |prizeY|
+// Assuming that these are always invertible, we can easily write the inverse of this 2x2 matrix and solve for c and d
+// |c| = _________1_________ |By -Bx| |prizeX|
+// |d| = (Ax * By - Bx * Ay) |-Ay Ax| |prizeY|
+// The solving can then be done purely with integers as only the last division can create non-integer solutions.
+// If this happens, i.e the remainder of this division is not zero, the solution is not an integer and we can just throw it away
 func PrizeTokens() string {
 	machines := parseInput()
 
@@ -65,6 +76,7 @@ func PrizeTokens() string {
 	return strconv.Itoa(total)
 }
 
+// Same as Part 1 but we increase each coordinate
 func FarawayPrizeTokens() string {
 	machines := parseInput()
 
