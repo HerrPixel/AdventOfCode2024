@@ -52,6 +52,7 @@ func parseInput() ([][]bool, int, int, int, int) {
 	return grid, startX, startY, endX, endY
 }
 
+// We find the shortest path by using dijkstra on the graph with nodes (x,y,orientation)
 func ReindeerPath() string {
 	grid, startX, startY, endX, endY := parseInput()
 
@@ -67,6 +68,8 @@ func ReindeerPath() string {
 	return strconv.Itoa(minDistance)
 }
 
+// We use dijkstra on the graph with nodes (x,y,orientation) and store all shortest predecessors
+// Then, when finished, we follow these predecessors back and collect them into a set
 func BenchSpots() string {
 	grid, startX, startY, endX, endY := parseInput()
 
@@ -104,6 +107,7 @@ func BenchSpots() string {
 	return strconv.Itoa(len(BestPath))
 }
 
+// dijkstra on (x,y,orientation) graphs with stored predecessors
 func dijkstra(grid [][]bool, startX int, startY int) ([][][4]int, [][][4][]triple) {
 	pq := make(Tools.PriorityQueue[triple], 0)
 	heap.Init(&pq)
@@ -115,6 +119,7 @@ func dijkstra(grid [][]bool, startX int, startY int) ([][][4]int, [][][4][]tripl
 
 	moves := [4]tuple{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}
 
+	// initialize data structures
 	for i, row := range grid {
 		distance = append(distance, make([][4]int, 0))
 		predecessor = append(predecessor, make([][4][]triple, 0))
@@ -139,6 +144,8 @@ func dijkstra(grid [][]bool, startX int, startY int) ([][][4]int, [][][4][]tripl
 		left := mod(direction-1, 4)
 		right := mod(direction+1, 4)
 
+		// If we have found another path with the same cost as before, we append a predecessor
+		// but don't need to discover this node again
 		if distance[nextX][nextY][direction] == currDistance+1 {
 			predecessor[nextX][nextY][direction] = append(predecessor[nextX][nextY][direction], triple{x, y, direction})
 		}
@@ -151,6 +158,7 @@ func dijkstra(grid [][]bool, startX int, startY int) ([][][4]int, [][][4][]tripl
 			predecessor[x][y][right] = append(predecessor[x][y][left], triple{x, y, direction})
 		}
 
+		// But if we have found a better path, use a new predecessor vector and discover this node
 		if distance[nextX][nextY][direction] > currDistance+1 && grid[nextX][nextY] {
 
 			distance[nextX][nextY][direction] = currDistance + 1
