@@ -27,6 +27,7 @@ func parseInput() []tuple {
 	return bytes
 }
 
+// We just use bfs on the grid created by placing the first 1024 bytes
 func ByteRainPath() string {
 	bytes := parseInput()
 
@@ -38,6 +39,7 @@ func ByteRainPath() string {
 	return strconv.Itoa(bfs(grid, 0, 0, width-1, height-1))
 }
 
+// We use binary search on the number of bytes we are placing until we find the last working number
 func LatestByteRainPath() string {
 	bytes := parseInput()
 
@@ -52,6 +54,7 @@ func LatestByteRainPath() string {
 
 		grid := gridFromBytes(bytes, middle, width, height)
 
+		// If it is impossible now, try less, otherwise if it is still possible, try more
 		if bfs(grid, 0, 0, width-1, height-1) == 0 {
 			right = middle
 		} else {
@@ -62,6 +65,7 @@ func LatestByteRainPath() string {
 	return strconv.Itoa(bytes[left].x) + "," + strconv.Itoa(bytes[left].y)
 }
 
+// standard bfs on a 2D-grid
 func bfs(grid [][]bool, startX int, startY int, endX int, endY int) int {
 	width := len(grid)
 	height := len(grid[0])
