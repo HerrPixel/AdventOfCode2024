@@ -31,6 +31,9 @@ func parseInput() []robot {
 	return robots
 }
 
+// We simulate the robots
+// Since they move the same every step, instead of doing each single step,
+// we just simulate one very large 100-second step
 func Bathroom() string {
 	robots := parseInput()
 
@@ -45,6 +48,8 @@ func Bathroom() string {
 	return strconv.Itoa(safetyFactor(robots, width, height))
 }
 
+// We heuristically test this by assuming the tree appears, when no two robots share the same space
+// This is in no way a general solution but it worked here.
 func EasterEgg() string {
 	robots := parseInput()
 
@@ -94,6 +99,7 @@ func safetyFactor(robots []robot, width int, height int) int {
 	return upperLeft * upperRight * lowerLeft * lowerRight
 }
 
+// Tests if every robot has a unique position
 func isTreeProbably(robots []robot) bool {
 	type tuple struct {
 		x int
