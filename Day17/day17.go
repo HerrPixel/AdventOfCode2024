@@ -31,6 +31,7 @@ func parseInput() (int, int, int, []int) {
 	return a, b, c, instructions
 }
 
+// We just simulate the programm as instructed
 func SimulateProgramm() string {
 	a, b, c, instructions := parseInput()
 
@@ -44,17 +45,27 @@ func SimulateProgramm() string {
 	return strings.Join(chars, ",")
 }
 
+// We heuristically solve this in reverse;
+// In my input, every 3 bits of A lead to one output
+// Registers B and C are reset between each output.
+// Therefore we simulate each 3-bit-combination of A to test if the output is correct
+// We then use this suffix and test the next 3 bits and so on until A outputs everything we need
 func SelfReplicationValue() string {
 	_, _, _, instructions := parseInput()
 
 	candidates := make([]int, 0)
 	candidates = append(candidates, 0)
 
+	// For each digit in the instruction, we need to test all 3-bit combinations
 	for matchingDigits := range len(instructions) {
 		matchingDigits += 1
 		newCandidates := make([]int, 0)
 
+		// There are 8 = 2^3 combinations for 3 bits
 		for i := range 8 {
+
+			// We need to use the previous results, since the output is also influenced by some bits of A afterwards
+			// This is why we try this in reverse, since the last 3 bits are not influenced by anything else
 			for _, c := range candidates {
 				candidate := 8*c + i
 
@@ -64,6 +75,8 @@ func SelfReplicationValue() string {
 					continue
 				}
 
+				// Test if the output is correct so far
+				// But in reverse, see above
 				valid := true
 				for k := range matchingDigits {
 					if instructions[len(instructions)-1-k] != outputs[len(outputs)-1-k] {
@@ -89,6 +102,8 @@ func SelfReplicationValue() string {
 	return strconv.Itoa(best)
 }
 
+// implementation as described in the problem
+// Some operations are simplified to bit magic
 func run(instructions []int, a int, b int, c int) []int {
 	output := make([]int, 0)
 
