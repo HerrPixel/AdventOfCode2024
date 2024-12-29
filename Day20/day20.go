@@ -38,6 +38,10 @@ func parseInput() ([][]int, int, int, int, int) {
 	return distance, startX, startY, endX, endY
 }
 
+// We assume there is a unique path from start to finish
+// We calculate this path and then check for each pair of points on the path, if their manhattan distance is 2 or less but their indices differ by at least 100
+// Since the start and end point of a cheat must be points on the unique path and with each cheat, we can travel at most a manhattan distance of 2, this suffices as conditions for cheats
+// Similarily, since the path is unique, the number of saved seconds equals the differences in indices of the two points on the path.
 func ShortShortcuts() string {
 	distance, startX, startY, endX, endY := parseInput()
 
@@ -46,6 +50,7 @@ func ShortShortcuts() string {
 	return strconv.Itoa(countShortcuts(path, 2))
 }
 
+// Same as Part 1 but we test if the manhattan distance is 20 or less
 func LongShortcuts() string {
 	distance, startX, startY, endX, endY := parseInput()
 
@@ -54,10 +59,12 @@ func LongShortcuts() string {
 	return strconv.Itoa(countShortcuts(path, 20))
 }
 
+// returns the unique path from start to finish as a list of 2D coordinates
 func getPath(grid [][]int, startX int, startY int, endX int, endY int) [][2]int {
 	x := startX
 	y := startY
 
+	// we mark visited spaces with their distance
 	distance := 1
 
 	path := make([][2]int, 0)
@@ -70,6 +77,8 @@ func getPath(grid [][]int, startX int, startY int, endX int, endY int) [][2]int 
 		grid[x][y] = distance
 		path = append(path, [2]int{x, y})
 
+		// only if the space is inbounds and unmarked, we visit it
+		// except for the endspace, there is always exactly one such space
 		if isInBounds(x+1, y) && grid[x+1][y] == 0 {
 			x = x + 1
 		} else if isInBounds(x, y+1) && grid[x][y+1] == 0 {
@@ -90,6 +99,7 @@ func getPath(grid [][]int, startX int, startY int, endX int, endY int) [][2]int 
 	return path
 }
 
+// Tests each pair of 2D points for manhattan Distance < shortcutLength and difference of indices > 100
 func countShortcuts(path [][2]int, shortcutLength int) int {
 	shortcuts := 0
 
