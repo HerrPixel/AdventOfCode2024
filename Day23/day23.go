@@ -31,6 +31,8 @@ func parseInput() map[string][]string {
 	return nodes
 }
 
+// starting with any node that starts with "t", we consider pairs of nodes in its neighborhood and test for triangles
+// We additionally store each triangle in a set, should we encounter doubles, i.e. two nodes starting with "t" in the same triangle
 func Triangles() string {
 	nodes := parseInput()
 
@@ -41,9 +43,14 @@ func Triangles() string {
 			continue
 		}
 
+		// tests each pair of nodes in the neighborhood of key
 		for _, n := range value {
 			for _, m := range value {
+
+				// tests if n and m share an edge
 				if slices.Contains(nodes[n], m) {
+
+					// finally, find the unique sorted representation of this triangle and store it in a set
 					tripple := []string{key, n, m}
 					slices.Sort(tripple)
 					hash := strings.Join(tripple[:], ",")
@@ -62,10 +69,12 @@ func Triangles() string {
 	return strconv.Itoa(len(found))
 }
 
+// Find the sorted, comma-seperated list of nodes in the largest clique in the graph
+// We use the Bron-Kerbosch algorithm with pivoting, see below
 func LargestClique() string {
 	nodes := parseInput()
 	keys := make([]string, 0, len(nodes))
-	for k, _ := range nodes {
+	for k := range nodes {
 		keys = append(keys, k)
 	}
 
@@ -75,6 +84,8 @@ func LargestClique() string {
 	return strings.Join(maximalClique, ",")
 }
 
+// Bron Kerbosch algorithm with pivoting to find all maximal clique of a graph
+// Instead of saving each clique, we just keep track of the largest one, since that is what we are interested in
 func BronKerbosch(R []string, P []string, X []string, nodes map[string][]string) []string {
 	if len(P) == 0 && len(X) == 0 {
 		return R
@@ -111,10 +122,14 @@ func BronKerbosch(R []string, P []string, X []string, nodes map[string][]string)
 	return maximalClique
 }
 
+// helper functions to make bron-kerbosch more readable
+
+// returns l ∪ {s}
 func union(l []string, s string) []string {
 	return append(Tools.Clone(l), s)
 }
 
+// returns l ∩ m
 func intersection(l []string, m []string) []string {
 	res := make([]string, 0)
 
@@ -127,6 +142,7 @@ func intersection(l []string, m []string) []string {
 	return res
 }
 
+// returns l \ m
 func without(l []string, m []string) []string {
 	res := make([]string, 0)
 
