@@ -18,11 +18,15 @@ func parseInput() ([]string, []string) {
 	return towels, designs
 }
 
+// We use Dynamic Programming to keep track of already seen partial designs and if they are possible to make
+// Then just test each pattern if it is a prefix and recurse into the design without this prefix
 func PossibleDesigns() string {
 	towels, designs := parseInput()
 
 	total := 0
 	for _, d := range designs {
+		// Our function outputs the number of combinations of each design
+		// In Part 1 we are only interested if they are possible, not in how many ways, so we need to just check if #combinations > 0
 		i := possibilities(d, towels, make(map[string]int, 0))
 		if i > 0 {
 			total += 1
@@ -32,6 +36,7 @@ func PossibleDesigns() string {
 	return strconv.Itoa(total)
 }
 
+// Same as Part 1 but we save the number of combinations per pattern, not the possibility itself
 func DesignCombinations() string {
 	towels, designs := parseInput()
 	total := 0
@@ -43,6 +48,8 @@ func DesignCombinations() string {
 	return strconv.Itoa(total)
 }
 
+// returns the number of possible combinations of design given the towel patterns
+// Uses memoization of the number of combinations for a partial design
 func possibilities(design string, towels []string, memo map[string]int) int {
 	if design == "" {
 		return 1
@@ -69,6 +76,7 @@ func possibilities(design string, towels []string, memo map[string]int) int {
 	return combinations
 }
 
+// Tests if b is a prefix of a
 func beginsWith(a string, b string) bool {
 	if len(b) > len(a) {
 		return false
