@@ -39,6 +39,7 @@ func parseInput() ([][]int, []int) {
 	return codes, numericalValues
 }
 
+// We calculate iterative shortest paths of the given sequences.
 func ShortComplexities() string {
 	codes, numericalValues := parseInput()
 
@@ -51,6 +52,7 @@ func ShortComplexities() string {
 	return strconv.Itoa(total)
 }
 
+// Same as Part 1, the technique lies in the recursion below
 func LongComplexities() string {
 	codes, numericalValues := parseInput()
 
@@ -63,6 +65,8 @@ func LongComplexities() string {
 	return strconv.Itoa(total)
 }
 
+// for each input sequence on the numpad that leads to the code being typed, we calculate the shortest input sequence by recursing into each indirected keypad.
+// We do this by considering each move as its own and calculating the shortest path for this move only and then aggregate.
 func shortestNumpadSequence(code []int, indirections int) int {
 	total := 0
 
@@ -83,6 +87,8 @@ func shortestNumpadSequence(code []int, indirections int) int {
 	return total
 }
 
+// calculate all input sequences on the numpad to input the correct code and returns them
+// we encode each direction as an index to the key on the next keypad
 func shortestNumpadMoves(destination int, start int) [][]int {
 	codes := [11][2]int{
 		{3, 1}, // 0
@@ -121,6 +127,7 @@ func shortestNumpadMoves(destination int, start int) [][]int {
 				continue
 			}
 
+			// empty space on the keypad
 			if x == 3 && y == 0 {
 				continue
 			}
@@ -151,8 +158,11 @@ type hash struct {
 
 var shortestSequence = make(map[hash]int, 0)
 
+// we calculate the shortes input sequence for a stack of #depth robots and a given code
+// We do this by recursing for each input and finding the optimal input sequence for that single symbol
 func shortestDirectionalPadSequence(code []int, depth int) int {
 
+	// last robot, just return the length of the sequence up until now
 	if depth == 0 {
 		return len(code)
 	}
@@ -161,8 +171,8 @@ func shortestDirectionalPadSequence(code []int, depth int) int {
 
 	position := 4
 
+	// calculate each input as its own and calculate the shortest sequence for this move only and aggregate
 	for _, button := range code {
-
 		total += shortestDirectionalPadMove(button, position, depth)
 		position = button
 	}
@@ -170,6 +180,9 @@ func shortestDirectionalPadSequence(code []int, depth int) int {
 	return total
 }
 
+// returns the length of the shortest sequence of inputs from the start to destination button if this is a robot that inputs to keypad number depth
+// This therefore iterates into lower numbered keypad robots
+// We calculate this shortest path by considering all shortest sequences on this keypad alone (with BFS) and then find the length of input sequences for each such path for all successive robots and keep the best one
 func shortestDirectionalPadMove(destination int, start int, depth int) int {
 	res, ok := shortestSequence[hash{start, destination, depth}]
 
@@ -208,6 +221,7 @@ func shortestDirectionalPadMove(destination int, start int, depth int) int {
 				continue
 			}
 
+			// empty space on the keypad
 			if x == 0 && y == 0 {
 				continue
 			}
