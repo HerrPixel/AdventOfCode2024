@@ -54,6 +54,8 @@ func parseInput() (map[string]bool, map[string]gate) {
 
 }
 
+// We simulate the circuit as instructed, starting from each zXX gate and following the gates backwards
+// If a gate has a calculated output already, we use this precomputed value, otherwise we recursively calulate the output of that gate
 func SimulateCircuit() string {
 	values, gates := parseInput()
 
@@ -62,10 +64,12 @@ func SimulateCircuit() string {
 	getValue = func(s string) bool {
 		res, ok := values[s]
 
+		// if the output of a gate is already set, use it instead of calculating it again
 		if ok {
 			return res
 		}
 
+		// otherwise calculate all inputs and use the combinator of this gate
 		gate := gates[s]
 		a := getValue(gate.a)
 		b := getValue(gate.b)
@@ -92,6 +96,31 @@ func SimulateCircuit() string {
 	return strconv.Itoa(total)
 }
 
+// We work very heuristically here;
+// We assume the circuitry is a Carry-Ripple-Adder, i.e.
+// xN ───────╦───┬───┐
+//
+//	│   │XOR├─╦──────┬───┐
+//
+// yN ─────╦─────┴───┘ │      │XOR├────── zN
+//
+//	│ │     ┌──────────┴───┘
+//
+// carryN ─────────╣   │
+//
+//	│ │     │   └┬───┐
+//	│ │     │    │AND├┐
+//	│ │     └────┴───┘└┬───┐
+//	│ │                │ OR├────── carryN+1
+//	│ └───┬───┐    ┌───┴───┘
+//	│     │AND├────┘
+//	└─────┴───┘
+//
+// For our input, all faults where somewhere in the upper XOR-chain
+// We therefore only test two things: if x XOR y is an input to the XOR-gate for z
+// and also if XOR-gate with inputs (x XOR y) and carryN is actually the output z
+// If there is a fault, we switch the ouput wire with the one it should actually be, i.e. the last XOR-gate before z or z itself.
+// This is enough for our input, finally we sort the names of the faulty gates and output them.
 func WrongWires() string {
 	_, gates := parseInput()
 
@@ -168,6 +197,7 @@ func WrongWires() string {
 	return strings.Join(faults, ",")
 }
 
+// finds the output wire of a gate with input a and b and operation op
 func findGate(gates map[string]gate, a string, b string, op func(bool, bool) bool) string {
 	for key, value := range gates {
 		if (value.a == a && value.b == b) || (value.a == b && value.b == a) {
@@ -179,6 +209,7 @@ func findGate(gates map[string]gate, a string, b string, op func(bool, bool) boo
 	return ""
 }
 
+// tests if f and g are the same function out of the set {AND,OR,XOR}
 func sameOperation(f func(bool, bool) bool, g func(bool, bool) bool) bool {
 	return f(true, true) == g(true, true) && f(true, false) == g(true, false)
 }
